@@ -2,7 +2,7 @@ bl_info = {
     "name": "Visual Code Machine",
     "description": "IDE for visual programming by Blender",
     "author": "Vladimir Zarypov (krre)",
-    "version": (0, 1),
+    "version": (0, 1, 0),
     "blender": (2, 65, 0),
     "location": "Search > Visual Code Machine",
     "warning": "",
