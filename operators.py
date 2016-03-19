@@ -18,6 +18,8 @@ class VCMOperator(Operator):
             if area.type == 'VIEW_3D':
                 for space in area.spaces:
                     if space.type == 'VIEW_3D':
+                        space.show_only_render = True
+
                         region = space.region_3d
 
                         region.view_location.x = 0
