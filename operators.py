@@ -8,6 +8,9 @@ class VCMOperator(Operator):
     bl_label = "Visual Code Machine"
 
     def execute(self, context):
+        # Change screen
+        bpy.context.window.screen = bpy.data.screens['3D View Full']
+
         # Remove all objects
         for obj in bpy.data.objects:
             obj.select = True
