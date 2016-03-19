@@ -8,8 +8,11 @@ class VCMOperator(Operator):
     bl_label = "Visual Code Machine"
 
     def execute(self, context):
-        # Change screen
-        bpy.context.window.screen = bpy.data.screens['3D View Full']
+        # Create new screen
+        index = bpy.data.screens.values().index(bpy.context.screen)
+        bpy.ops.screen.new()
+        vcm_screen = bpy.data.screens[index + 1]
+        vcm_screen.name = "VCM"
 
         # Remove all objects
         for obj in bpy.data.objects:
@@ -17,7 +20,7 @@ class VCMOperator(Operator):
         bpy.ops.object.delete()
 
         # Reset viewport
-        for area in bpy.context.screen.areas:
+        for area in vcm_screen.areas:
             if area.type == 'VIEW_3D':
                 for space in area.spaces:
                     if space.type == 'VIEW_3D':
