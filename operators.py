@@ -54,8 +54,15 @@ class ModalTimerOperator(bpy.types.Operator):
 
     def modal(self, context, event):
         if event.type == 'TIMER':
+            # Set View3D area
             area = context.area
             area.type = 'VIEW_3D'
+
+            # Hide header
+            for region in area.regions:
+                if region.type == 'HEADER' and region.height > 1:
+                    bpy.ops.screen.header()
+                    break
 
             # Reset viewport
             for space in area.spaces:
