@@ -40,25 +40,59 @@ class VCMOperator(bpy.types.Operator):
                         if result == {'FINISHED'}:
                             break
 
-        area = vcm_screen.areas[0]
-        area.type = 'VIEW_3D'
-
-        # Reset viewport
-        for space in area.spaces:
-            if space.type == 'VIEW_3D':
-                space.show_only_render = True
-
-                region = space.region_3d
-
-                region.view_location.x = 0
-                region.view_location.y = 0
-                region.view_location.z = 0
-
-                region.view_rotation.w = 1
-                region.view_rotation.x = 0
-                region.view_rotation.y = 0
-                region.view_rotation.z = 0
-
-                region.view_distance = 10
-
+        # Need redraw screen before set area.type = 'VIEW_3D'
+        bpy.ops.wm.modal_timer_operator()
         return {'FINISHED'}
+
+
+class ModalTimerOperator(bpy.types.Operator):
+    """Operator which runs its self from a timer"""
+    bl_idname = "wm.modal_timer_operator"
+    bl_label = "Modal Timer Operator"
+
+    _timer = None
+
+    def modal(self, context, event):
+        if event.type == 'TIMER':
+            area = context.area
+            area.type = 'VIEW_3D'
+
+            # Reset viewport
+            for space in area.spaces:
+                if space.type == 'VIEW_3D':
+                    space.show_only_render = True
+
+                    region = space.region_3d
+
+                    region.view_location.x = 0
+                    region.view_location.y = 0
+                    region.view_location.z = 0
+
+                    region.view_rotation.w = 1
+                    region.view_rotation.x = 0
+                    region.view_rotation.y = 0
+                    region.view_rotation.z = 0
+
+                    region.view_distance = 10
+
+            return self.cancel(context)
+
+        return {'PASS_THROUGH'}
+
+    def execute(self, context):
+        wm = context.window_manager
+        self._timer = wm.event_timer_add(0.1, context.window)
+        wm.modal_handler_add(self)
+        return {'RUNNING_MODAL'}
+
+    def cancel(self, context):
+        context.window_manager.event_timer_remove(self._timer)
+        return {'CANCELLED'}
+
+
+def register():
+    bpy.utils.register_class(ModalTimerOperator)
+
+
+def unregister():
+    bpy.utils.unregister_class(ModalTimerOperator)
