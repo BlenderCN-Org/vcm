@@ -16,9 +16,12 @@ if "bpy" in locals():
     import imp
     if "operators" in locals():
         imp.reload(operators)
+    if "preferences" in locals():
+        imp.reload(preferences)
 
 import bpy
 from . import operators
+from . import preferences
 
 
 def register():
