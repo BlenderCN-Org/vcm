@@ -66,7 +66,7 @@ class ModalTimerOperator(bpy.types.Operator):
             # Reset viewport
             for space in area.spaces:
                 if space.type == 'VIEW_3D':
-                    space.show_only_render = True
+                    # space.show_only_render = True
 
                     region = space.region_3d
 
@@ -74,8 +74,8 @@ class ModalTimerOperator(bpy.types.Operator):
                     region.view_location.y = 0
                     region.view_location.z = 0
 
-                    region.view_rotation.w = 1
-                    region.view_rotation.x = 0
+                    region.view_rotation.w = 0.9
+                    region.view_rotation.x = 0.9
                     region.view_rotation.y = 0
                     region.view_rotation.z = 0
 
