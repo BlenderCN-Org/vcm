@@ -1,10 +1,10 @@
 import bpy
 
 
-class VCMOperator(bpy.types.Operator):
+class VCMInitOperator(bpy.types.Operator):
     """Tooltip"""
-    bl_idname = "object.visual_code_machine"
-    bl_label = "Visual Code Machine"
+    bl_idname = "object.vcm_init"
+    bl_label = "VCM Init"
 
     def execute(self, context):
         vcm_screen = None
