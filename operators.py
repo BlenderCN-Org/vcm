@@ -94,3 +94,13 @@ class ModalTimerOperator(bpy.types.Operator):
     def cancel(self, context):
         context.window_manager.event_timer_remove(self._timer)
         return {'CANCELLED'}
+
+
+class VCMFunctionOperator(bpy.types.Operator):
+    """Tooltip"""
+    bl_idname = "object.vcm_function"
+    bl_label = "VCM Function"
+
+    def execute(self, context):
+        print("Function")
+        return {'FINISHED'}
