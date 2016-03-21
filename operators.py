@@ -13,8 +13,7 @@ class VCMOperator(bpy.types.Operator):
         for screen in bpy.data.screens:
             if screen.name == "VCM":
                 bpy.context.window.screen = screen
-                vcm_screen = screen
-                break
+                return {'FINISHED'}
 
         # Create new VCM screen if not exists
         if not vcm_screen:
