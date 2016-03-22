@@ -10,10 +10,9 @@ class VCMInitOperator(bpy.types.Operator):
         vcm_screen = None
 
         # Select VCM screen if exists
-        for screen in bpy.data.screens:
-            if screen.name == "VCM":
-                bpy.context.window.screen = screen
-                return {'FINISHED'}
+        if "VCM" in bpy.data.screens:
+            bpy.context.window.screen = bpy.data.screens["VCM"]
+            return {'FINISHED'}
 
         # Create new VCM screen if not exists
         if not vcm_screen:
